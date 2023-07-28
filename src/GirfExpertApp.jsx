@@ -1,40 +1,37 @@
-import { useState } from "react";
-import {AddCategory,GifGrid} from "./components";
+import { useState } from "react"
+import AddGif from "./components/AddGif"
+import ItemGif from "./components/ItemGif"
 
 const GirfExpertApp = () => {
-    const [categories, setCategories] = useState([]);
 
-   
+    const [categorias, setCategorias] = useState([])
 
-    const obtenerCategoria = (valor) => {
-        
-        const exists = categories.find((category) => category.toLowerCase() === valor.toLowerCase());
-        if (exists){
-            alert("Ya existe la categoria");
-            return;
+    const obtenerCategorias = (cat) => {
+        const existe = categorias.find(item=> item.toLowerCase() === cat.toLowerCase())
+        if(existe){
+            alert("ya existe")
+        }else{
+            setCategorias([cat,...categorias])
         }
-
-        setCategories([valor, ...categories]);
-    };
+    }
 
     return (
         <>
-            <h1>GirfExpertApp</h1>
-
-            <AddCategory 
-                obtenerCategoria={obtenerCategoria}
+            <h1>GiftExpertApp</h1>
+            <AddGif
+                obtenerCategorias={obtenerCategorias}
             />
 
-            {
-                categories.map((category) => (
-                    <GifGrid
-                        key={category}
-                        category={category}
-                    />
-                ))
-            }
-        </>
-    );
-};
 
-export default GirfExpertApp;
+            {categorias.map(categoria => (
+                <ItemGif
+                    key={categoria}
+                    categoria={categoria}
+                />
+            ))}
+
+        </>
+    )
+}
+
+export default GirfExpertApp
